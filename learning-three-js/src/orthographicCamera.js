@@ -12,16 +12,20 @@ const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 console.log(scene);
 
-//initialize the camera(Perspective camera)
-const camera = new THREE.PerspectiveCamera(
-  35, //fov - field of view
-  window.innerWidth / window.innerHeight, //aspect
-  0.1, //near clipping plane - anything closer than this will be not visible
-  30 //far clipping plane - anything far than this will also not be visible
+const aspectRatio = window.innerWidth / window.innerHeight;
+
+//initialize the camera (orthographic camera)
+const camera = new THREE.OrthographicCamera(
+    -1 * aspectRatio, //left
+    1 * aspectRatio, //right
+    1, //top
+    -1, //bottom
+    0.1, //near
+    200 //far
 );
 
+
 camera.position.z = 5;
-//scene.add(camera);
 
 //initialize the renerer
 const canvas = document.querySelector('canvas.threejs');
