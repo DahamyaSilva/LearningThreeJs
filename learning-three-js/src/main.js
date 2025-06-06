@@ -39,6 +39,13 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.autoRotate = true;
 
+//event listener to deal with resizing
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth , window.innerHeight);
+});
+
 const renderloop = () => {
 
   controls.update();
