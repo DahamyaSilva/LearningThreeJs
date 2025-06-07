@@ -9,10 +9,11 @@ const cubeMaterial = new THREE.MeshBasicMaterial({color: "cyan"});
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cubeMesh);
 
-cubeMesh.position.y = 1;
-cubeMesh.position.x = 1;
+//vector 3
+const tempVector = new THREE.Vector3(0, 1, 0);
+cubeMesh.position.copy(tempVector);
 
-
+//added axes helper
 const axesHelper = new THREE.AxesHelper(2);
 scene.add(axesHelper);
 
@@ -26,6 +27,7 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.z = 5;
 
+console.log(cubeMesh.position.distanceTo(camera.position));
 
 //initialize the renerer
 const canvas = document.querySelector('canvas.threejs');
