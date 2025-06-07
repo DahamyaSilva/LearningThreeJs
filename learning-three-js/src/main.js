@@ -27,11 +27,14 @@ camera.position.z = 5;
 const canvas = document.querySelector('canvas.threejs');
 
 const renderer = new THREE.WebGLRenderer({
-  canvas: canvas
+  canvas: canvas,
+  antialias: true //------- This can be used to get rid of the aliasing problem
 });
 
 renderer.setSize(window.innerWidth , window.innerHeight);
 
+const maxPixelRatio = Math.min(window.devicePixelRatio, 2);
+renderer.setPixelRatio(maxPixelRatio);
 
 //initialize the controls
 const controls = new OrbitControls(camera, canvas);
