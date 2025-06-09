@@ -3,9 +3,33 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
 
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+//first three parameters for the box are width, height and depth
+//second three parameters are width Segment, height Segment, depth Segment,
+// const cubeGeometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
+
+const geometry = new THREE.SphereGeometry(1,16,16);
+// const geometry = new THREE.PlaneGeometry(1,1,2,2);
+// const geometry = new THREE.TorusKnotGeometry(10,3,100, 16);
+
+//create custom geometry //creating a triangle 
+// const vertices = new Float32Array([
+
+// //x, y, z
+//   0, 0, 0, //vertex 1
+//   0, 2, 0, //vertex 2
+//   2, 0, 0  //vertex 3
+// ]); 
+
+// const bufferAttribute = new THREE.BufferAttribute(vertices, 3);
+
+// const geometry = new THREE.BufferGeometry();
+// geometry.setAttribute('position', bufferAttribute);
+
+
 const cubeMaterial = new THREE.MeshBasicMaterial({color: "cyan", wireframe: true});
-const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+// const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+const cubeMesh = new THREE.Mesh(geometry, cubeMaterial);
 
 scene.add(cubeMesh);
 
@@ -16,7 +40,7 @@ const camera = new THREE.PerspectiveCamera(
   30 
 );
 
-camera.position.z = 5;
+camera.position.z = 25;
 
 const canvas = document.querySelector('canvas.threejs');
 
@@ -41,28 +65,8 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth , window.innerHeight);
 });
 
-//initialize the clock
-const clock = new THREE.Clock();
-let previousTime = 0;
 
 const renderloop = () => {
-  //gets the current time
-  const currentTime = clock.getElapsedTime();
-
-  //calculates the delta 
-  const delta = currentTime - previousTime;
-
-  //sets the current time as the pervious time for the next frame
-  previousTime = currentTime;
-
-  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 20; 
-
-  //these are not that good animations 
-  // cubeMesh.scale.x +=  1 * delta; 
-  // cubeMesh.position.x +=  1 * delta;
-
-  cubeMesh.scale.x = Math.sin(currentTime) + 1;
-  // cubeMesh.position.x = Math.sin(currentTime) + 2;
 
   controls.update();
   renderer.render(scene, camera);
