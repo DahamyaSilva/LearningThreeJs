@@ -18,13 +18,19 @@ const sphereGeometry = new THREE.SphereGeometry(0.5,32,32); //radius width heigh
 const cylinderGeometry =  new THREE.CylinderGeometry(0.5, 0.5, 1, 32)
 
 //initialize the texture
-const texture = textureLoader.load('/static/textures/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png');
+const grassTexture = textureLoader.load('/static/textures/space-cruiser-panels2-bl/space-cruiser-panels2_albedo.png');
+grassTexture.repeat.set(2, 2);
+// grassTexture.wrapS = THREE.MirroredRepeatWrapping
+// grassTexture.wrapT = THREE.MirroredRepeatWrapping
+
+grassTexture.wrapS = THREE.RepeatWrapping
+grassTexture.wrapT = THREE.RepeatWrapping
+
 
 //initialize the material 
 const material = new THREE.MeshBasicMaterial( );
 // material.color = new THREE.Color('cyan');
-material.map = texture;
-material.color = new THREE.Color('red');
+material.map = grassTexture;
 
 //initialize a group 
 const group = new THREE.Group() 
@@ -50,6 +56,8 @@ cylinder.geometry = cylinderGeometry;
 cylinder.material = material;
 cylinder.position.y = -1.5;
 
+planeMesh.rotation.x = -(Math.PI * 0.5);
+planeMesh.scale.set(100, 100);
 
 const cylinderMesh = new THREE.Mesh(cylinderGeometry, material);
 
@@ -57,7 +65,8 @@ const cylinderMesh = new THREE.Mesh(cylinderGeometry, material);
 // scene.add(cubeMesh);
 // scene.add(cubeMesh2);
 // scene.add(planeMesh);
-group.add(cubeMesh, cubeMesh2, planeMesh, sphere, cylinder);
+// group.add(cubeMesh, cubeMesh2, planeMesh, sphere, cylinder);
+group.add(planeMesh);
 scene.add(group);
 
 
@@ -73,10 +82,12 @@ const camera = new THREE.PerspectiveCamera(
   35, 
   window.innerWidth / window.innerHeight, 
   0.1, 
-  30 
+  10000 
 );
 
-camera.position.z = 5; 
+camera.position.z = 10;
+camera.position.y = 5;
+
 
 const canvas = document.querySelector('canvas.threejs');
 
@@ -105,12 +116,12 @@ window.addEventListener('resize', () => {
 
 //render the scene
 const renderloop = () => {
-  group.children.forEach((child => {
-    if (child instanceof THREE.Mesh){
-      child.rotation.y += 0.01;
-    }
-  } 
-  ));
+  // group.children.forEach((child => {
+  //   if (child instanceof THREE.Mesh){
+  //     child.rotation.y += 0.01;
+  //   }
+  // } 
+  // ));
   // cubeMesh.rotation.y += 0.01; 
 
   controls.update();
