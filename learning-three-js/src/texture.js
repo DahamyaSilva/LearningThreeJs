@@ -26,6 +26,21 @@ grassTexture.repeat.set(2, 2);
 grassTexture.wrapS = THREE.RepeatWrapping
 grassTexture.wrapT = THREE.RepeatWrapping
 
+grassTexture.offset.x = 0.5;
+
+// pane.addInput(grassTexture, 'offset', {
+//   x: {
+//     min: -1,
+//     max: 1,
+//     step: 0.001
+//   },
+//   y: {
+//     min: -1,
+//     max: 1,
+//     step: 0.001
+//   }
+// })
+
 
 //initialize the material 
 const material = new THREE.MeshBasicMaterial( );
